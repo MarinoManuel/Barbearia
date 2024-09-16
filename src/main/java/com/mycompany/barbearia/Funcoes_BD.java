@@ -289,4 +289,40 @@ public class Funcoes_BD {
         pst.executeUpdate();
         pst.close();
     }
+
+    public static List<ReciboCompleto> obterRecibosComRelacoes(String idRecibo) throws SQLException {
+        List<ReciboCompleto> recibosComRelacoes = new ArrayList<>();
+        sql = "SELECT r.idRecibo, r.dataRecibo, r.dataAtendimento, r.estado, "
+                + "rr.userName, rr.nomeServico, rr.tipoServico, rr.numTelefone, rr.nomeBarbeiro "
+                + "FROM recibos r "
+                + "JOIN reciboRelacoes rr ON r.idRecibo = rr.idRecibo "
+                + "WHERE r.idRecibo = ?";
+
+        pst = Conexao.getC().prepareStatement(sql);
+        pst.setString(1, idRecibo);
+        ResultSet rs = pst.executeQuery();
+
+        while (rs.next()) {
+            String idReciboRetornado = rs.getString("idRecibo");
+            java.sql.Timestamp dataRecibo = rs.getTimestamp("dataRecibo");
+            java.sql.Timestamp dataAtendimento = rs.getTimestamp("dataAtendimento");
+            double estado = rs.getDouble("estado");
+            String userName = rs.getString("userName");
+            String nomeServico = rs.getString("nomeServico");
+            String tipoServico = rs.getString("tipoServico");
+            String numTelefone = rs.getString("numTelefone");
+            String nomeBarbeiro = rs.getString("nomeBarbeiro");
+
+            ReciboCompleto reciboCompleto = new ReciboCompleto(
+                    idReciboRetornado, dataRecibo, dataAtendimento, estado,
+                    userName, nomeServico, tipoServico, numTelefone, nomeBarbeiro
+            );
+            recibosComRelacoes.add(reciboCompleto);
+        }
+
+        rs.close();
+        pst.close();
+
+        return recibosComRelacoes;
+    }
 }
