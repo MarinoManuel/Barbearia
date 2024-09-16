@@ -11,18 +11,22 @@ import java.sql.SQLException;
 public class ValidacaoUsuario {
     
     
-    public static String verificarAdicionarUsuario(String username, String userpassword) {
+    public static byte verificarAdicionarUsuario(String username, String userpassword) {
+        
+        if (username.isEmpty()){
+            return 0;
+        }
 
         try {
             Funcoes_BD.addUsuario(username, userpassword);
-            return "message: Usuario adicionado com sucesso";
+            return 1;
         } catch (SQLException e) {
 
             System.out.println("Erro no console: " + e.getMessage());
-            return "erro: Banco de Dados - Username ja em uso";
+            return 2;
         } catch (Exception e) {
             System.out.println("Erro no console: " + e.getMessage());
-            return "erro: Contacte o Admin";
+            return 3;
         }
 
     }

@@ -8,66 +8,82 @@ import java.sql.SQLException;
  */
 public class ValidacaoCliente {
 
-    public static String verificarAdicionarCliente(String username, String userpassword) {
+    public static byte verificarAdicionarCliente(String username, String userPassword) {
+        
+        if (username.isEmpty()){
+            return 0;
+        }
 
         try {
-            Funcoes_BD.addUsuario(username, userpassword);
-            return "message: Cliente adicionado com sucesso";
+            Funcoes_BD.addUsuario(username, userPassword);
+            return 1;
         } catch (SQLException e) {
 
             System.out.println("Erro no console: " + e.getMessage());
-            return "erro: Banco de Dados - Username ja em uso";
+            return 2;
         } catch (Exception e) {
             System.out.println("Erro no console: " + e.getMessage());
-            return "erro: Contacte o Admin";
+            return 3;
         }
 
     }
 
-    public static String verificarEditarNomeCliente(String numTelefone, String novoNomeCliente) {
+    public static byte verificarEditarNomeCliente(String numTelefone, String novoNomeCliente) {
+        
+        if (novoNomeCliente.isEmpty()){
+            return 0;
+        }
 
         try {
             Funcoes_BD.editarNomeCliente(numTelefone, novoNomeCliente);
-            return "message: nomeCliente actualizado com sucesso";
+            return 1;
         } catch (SQLException e) {
 
             System.out.println("Erro no console: " + e.getMessage());
-            return "erro: Banco de Dados - Username ja em uso";
+            return 2;
         } catch (Exception e) {
             System.out.println("Erro no console: " + e.getMessage());
-            return "erro: Contacte o Admin";
+            return 3;
         }
 
     }
 
-    public static String verificarEditarApelidoCliente(String numTelefone, String novoApelidoCliente) {
+    public static byte verificarEditarApelidoCliente(String numTelefone, String novoApelidoCliente) {       
+        
+        if (novoApelidoCliente.isEmpty()){
+            return 0;
+        }
 
         try {
             Funcoes_BD.editarNomeCliente(numTelefone, novoApelidoCliente);
-            return "message: apelidoCliente actualizado com sucesso";
+            return 1;
         } catch (SQLException e) {
 
             System.out.println("Erro no console: " + e.getMessage());
-            return "erro: Banco de Dados - Ocorreu um erro";
+            return 2;
         } catch (Exception e) {
             System.out.println("Erro no console: " + e.getMessage());
-            return "erro: Contacte o Admin";
+            return 3;
         }
 
     }
 
-    public static String verificarEditarEmailCliente(String numTelefone, String novoEmailCliente) {
+    public static byte verificarEditarEmailCliente(String numTelefone, String novoEmailCliente) {
+        
+        if (!novoEmailCliente.contains("@")){
+            return 0;
+        }
 
         try {
             Funcoes_BD.editarNomeCliente(numTelefone, novoEmailCliente);
-            return "message: emailCliente actualizado com sucesso";
+            return 1;
         } catch (SQLException e) {
 
             System.out.println("Erro no console: " + e.getMessage());
-            return "erro: Banco de Dados - Email ja em uso";
+            return 2;
         } catch (Exception e) {
             System.out.println("Erro no console: " + e.getMessage());
-            return "erro: Contacte o Admin";
+            return 3;
         }
 
     }
