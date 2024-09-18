@@ -22,6 +22,24 @@ public class Funcoes_BD {
         pst.close();
     }
 
+    public static Usuario consultarUsuario(String username) throws SQLException {
+        String sql = "SELECT * FROM usuarios WHERE username = ?";
+        PreparedStatement pst = Conexao.getC().prepareStatement(sql);
+        pst.setString(1, username);
+        ResultSet rs = pst.executeQuery();
+
+        Usuario usuario = null;
+
+        if (rs.next()) {
+            usuario = new Usuario(rs.getString("username"), rs.getString("userpassword"));
+        }
+
+        rs.close();
+        pst.close();
+
+        return usuario;
+    }
+
     // Clientes
     public static void addCliente(String numTelefone, String nomeCliente, String apelidoCliente, String email) throws SQLException {
         sql = "INSERT INTO clientes (numtelefone, nomecliente, apelidocliente, email) VALUES(?,?,?,?)";
