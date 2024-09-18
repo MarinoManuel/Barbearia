@@ -45,16 +45,16 @@ public class ValidacaoUsuario {
             Usuario usuario = consultarUsuario(username);
 
             if (usuario == null) {
-                return 2;  // Retorna 2 se o usuário não existir no banco de dados
+                return 1;  // Retorna 2 se o usuário não existir no banco de dados
             }
 
             // Verifica se a senha é diferente
             if (!usuario.getUserpassword().equals(userpassword)) {
-                return 3;  // Retorna 3 se a senha estiver incorreta
+                return 2;  // Retorna 3 se a senha estiver incorreta
             }
 
         }  catch (SQLException e) {
-            retorno = 4;  // Retorna 4 para indicar que houve um problema de conexão
+            retorno = 3;  // Retorna 4 para indicar que houve um problema de conexão
         }
 
         // Retorna o valor de retorno apropriado
