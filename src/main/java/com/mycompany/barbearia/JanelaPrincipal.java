@@ -1,19 +1,23 @@
 package com.mycompany.barbearia;
 
-import java.awt.HeadlessException;
-import javax.swing.JFrame;
 
+import java.awt.Component;
+import javax.swing.JFrame;
 
 public class JanelaPrincipal extends JFrame {
 
-    public JanelaPrincipal(){
-        super("BarberShop");
+    public JanelaPrincipal() {
+        super("Janela principal");
+        super.setSize(650, 650);
         super.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        super.setSize(400, 400 );
-        PainelFundo painelInicial = new PainelFundo("Imagens\\FundoLogin.jpg");
-        add(painelInicial);     
-        
-        setVisible(true);
+        super.setVisible(true);
     }
-    
+
+    @Override
+    public Component add(Component e) {
+        super.add(e);
+        super.repaint();
+        super.revalidate();
+        return e;
+    }
 }
