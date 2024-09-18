@@ -1,7 +1,8 @@
 package com.mycompany.barbearia;
 
-
 import com.mycompany.barbearia.Funcoes_BD;
+import static com.mycompany.barbearia.Funcoes_BD.consultarUsuario;
+import com.mysql.cj.jdbc.exceptions.CommunicationsException;
 import java.sql.SQLException;
 
 /**
@@ -9,11 +10,10 @@ import java.sql.SQLException;
  * @author zimba
  */
 public class ValidacaoUsuario {
-    
-    
+
     public static byte verificarAdicionarUsuario(String username, String userpassword) {
-        
-        if (username.isEmpty()){
+
+        if (username.isEmpty()) {
             return 0;
         }
 
@@ -30,5 +30,35 @@ public class ValidacaoUsuario {
         }
 
     }
-    
+
+    public static byte ValidarConsultausuario(String username, String userpassword) {
+        // Define o valor de retorno padrão
+        byte retorno = 0;
+
+        try {
+            // Verifica se o tamanho do username ou userpassword é maior que 45 caracteres
+            if (username.length() > 45 || userpassword.length() > 45) {
+                return 1;  // Retorna 1 se exceder o número de caracteres
+            }
+
+            // Chama o método para consultar o usuário no banco de dados
+            Usuario usuario = consultarUsuario(username);
+
+            if (usuario == null) {
+                return 2;  // Retorna 2 se o usuário não existir no banco de dados
+            }
+
+            // Verifica se a senha é diferente
+            if (!usuario.getUserpassword().equals(userpassword)) {
+                return 3;  // Retorna 3 se a senha estiver incorreta
+            }
+
+        }  catch (SQLException e) {
+            retorno = 4;  // Retorna 4 para indicar que houve um problema de conexão
+        }
+
+        // Retorna o valor de retorno apropriado
+        return retorno;
+    }
+
 }
