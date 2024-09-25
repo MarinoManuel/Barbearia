@@ -12,7 +12,12 @@ public class JanelaPrincipal extends JFrame {
         super.setDefaultCloseOperation(EXIT_ON_CLOSE);
         super.setVisible(true);
     }
-
+    
+    public void r(){
+        super.revalidate();
+        super.repaint();
+    }
+    
     @Override
     public Component add(Component e) {
         super.add(e);
@@ -20,4 +25,5 @@ public class JanelaPrincipal extends JFrame {
         super.revalidate();
         return e;
     }
+    
 }
