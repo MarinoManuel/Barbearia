@@ -4,7 +4,7 @@ package com.mycompany.barbearia;
 public class PainelPrincipal extends PainelFundo {
 
     public PainelPrincipal() {
-        super(null);
+        super("src\\main\\java\\Imagens\\funcionarios_background.png");
     }
     
 }

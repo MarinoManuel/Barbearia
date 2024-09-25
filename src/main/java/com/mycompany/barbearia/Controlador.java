@@ -36,7 +36,8 @@ public class Controlador {
             byte a = ValidacaoUsuario.ValidarConsultausuario(painelLogin.getUsuario(), painelLogin.getPassword());
             switch (a) {
                 case 0:
-                    removerPainelLogin();
+                    janelaPrincipal.remove(painelLogin);
+                    janelaPrincipal.add(new PainelPrincipal());
                     janelaPrincipal.r();
                     break;
                 case 1:
