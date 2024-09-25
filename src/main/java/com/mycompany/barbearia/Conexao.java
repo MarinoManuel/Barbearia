@@ -8,22 +8,27 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Conexao {
+
     private static Connection connection;
-   
-    public static void Conexao() {
-        String url = "jdbc:mysql://gateway01.ap-southeast-1.prod.aws.tidbcloud.com:4000/barbershop";
-        String user = "3pyoG94zDojpRo6.root";
-        String password = "ToXyXHtA3UBw0fQi";
+
+    public static Connection Conexao() {
+
+        String url = "jdbc:mysql://localhost:3306/barbearia";
+        String user = "root";
+        String password = "*#MARLO321*#";
 
         connection = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(url, user, password);
-            System.out.println("Conexao bem sucedida!");                  
+            System.out.println("Conexao bem sucedida!");
+            return connection;
         } catch (ClassNotFoundException e) {
             System.err.println("Driver JDBC não encontrado: " + e.getMessage());
+            return connection;
         } catch (SQLException e) {
             System.err.println("Erro ao conectar ou consultar o banco de dados: " + e.getMessage());
+            return connection;
         }
     }
 
