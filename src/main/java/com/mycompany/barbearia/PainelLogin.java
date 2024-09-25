@@ -32,11 +32,11 @@ public class PainelLogin extends PainelFundo implements ActionListener {
     JPanel painelCenntralizado;
 
     public PainelLogin() {
-        super("5570834.jpg");
+        super("src\\main\\java\\Imagens\\5570834.jpg");
         this.setLayout(new BorderLayout());
 
         labelGirando = new JLabel();
-        labelGirando.setIcon(new ImageIcon("grey-9026_256.gif"));
+        labelGirando.setIcon(new ImageIcon("src\\main\\java\\Imagens\\grey-9026_256.gif"));
 
         painelBotaoEntrar_LabelGirando = new JPanel();
         painelBotaoEntrar_LabelGirando.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 0));
@@ -138,7 +138,7 @@ public class PainelLogin extends PainelFundo implements ActionListener {
         JLabel labelTesteConexao = new JLabel("Carregando recursos");
         labelTesteConexao.setFont(new Font("Arial", Font.BOLD, 24));
         JLabel fotoConexao = new JLabel();
-        fotoConexao.setIcon(new ImageIcon("grey-9026_256.gif"));
+        fotoConexao.setIcon(new ImageIcon("src\\main\\java\\Imagens\\grey-9026_256.gif"));
         desativarLabelGirando();
         painelCenntralizado.add(labelTesteConexao);
         painelCenntralizado.add(fotoConexao);
