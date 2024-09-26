@@ -31,7 +31,7 @@ public class PainelLogin extends PainelFundo implements ActionListener {
     JPanel painelCenntralizado;
     
     public PainelLogin() {
-        super("src\\main\\java\\Imagens\\inicial_background_1.png");
+        super("src\\main\\java\\Imagens\\login.jpg");
         this.setLayout(new BorderLayout());
         
         labelGirando = new JLabel();
