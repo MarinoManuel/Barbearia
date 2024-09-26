@@ -18,7 +18,7 @@ public class BotoesBarbearia extends JButton {
         super.setContentAreaFilled(false); // Remove a cor de fundo
         super.setFocusPainted(false); // Remove o foco visual
         super.setBorderPainted(false); // Remove a borda do botão
-
+        setBorder(BorderFactory.createLineBorder(Color.BLACK));
         // Adicionar um MouseListener para mostrar a borda ao passar o mouse
         this.addMouseListener(new MouseAdapter() {
             @Override

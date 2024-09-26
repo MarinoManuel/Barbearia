@@ -1,19 +1,14 @@
 package com.mycompany.barbearia;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
-import javax.swing.ImageIcon;
+import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-
-
+import javax.swing.JPanel;
 
 public class Barbearia {
 
-    public static void main(String[] args) throws InterruptedException {
-      new Controlador();
+    public static void main(String[] args) throws InterruptedException, SQLException {
+        new Controlador();
     }
 }

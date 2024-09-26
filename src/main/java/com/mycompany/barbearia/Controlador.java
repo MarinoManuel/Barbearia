@@ -18,7 +18,7 @@ public class Controlador {
             painelLogin.addPainelCentralizado();
             janelaPrincipal.r();
         });
-        Thread.sleep(4000);
+        Thread.sleep(8000);
 
         SwingUtilities.invokeLater(() -> {
             painelLogin.removerTudo();
@@ -37,7 +37,7 @@ public class Controlador {
             switch (a) {
                 case 0:
                     janelaPrincipal.remove(painelLogin);
-                    janelaPrincipal.add(new PainelPrincipal());
+                    janelaPrincipal.add(new PainelPrincipal(painelLogin.caixaUsuario.getText()));
                     janelaPrincipal.r();
                     break;
                 case 1:
