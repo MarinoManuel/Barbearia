@@ -12,7 +12,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 
 public class Barbearia {
-
+a
     public static void main(String[] args) throws InterruptedException, SQLException {
         JFrame frame = new JFrame("Tabela de Clientes");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
