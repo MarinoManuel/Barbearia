@@ -18,7 +18,7 @@ public class Controlador {
             painelLogin.addPainelCentralizado();
             janelaPrincipal.r();
         });
-        Thread.sleep(8000);
+        Thread.sleep(1000);
 
         SwingUtilities.invokeLater(() -> {
             painelLogin.removerTudo();
