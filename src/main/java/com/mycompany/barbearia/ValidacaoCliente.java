@@ -85,7 +85,6 @@ public class ValidacaoCliente {
             System.out.println("Erro no console: " + e.getMessage());
             return 3;
         }
-
     }
-
+     
 }

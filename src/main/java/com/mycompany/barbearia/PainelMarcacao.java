@@ -8,8 +8,11 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -17,6 +20,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class PainelMarcacao extends PainelFundo {
 
@@ -34,7 +39,7 @@ public class PainelMarcacao extends PainelFundo {
     JTextField caixaTelefone;
 
     public PainelMarcacao() {
-        super("src\\main\\java\\Imagens\\login.jpg");
+        super("src\\main\\java\\Imagens\\servicos_background.png");
         super.setLayout(new BorderLayout());
 
         botaoAgendar = new BotoesBarbearia("Agendar", Color.WHITE, 20);
@@ -47,14 +52,14 @@ public class PainelMarcacao extends PainelFundo {
         comboBoxtrancas.setPreferredSize(new Dimension(120, 30));
         comboBoxPintar.setBackground(Color.WHITE);
         comboBoxPintar.setPreferredSize(new Dimension(120, 30));
-        
+
         caixaTelefone = new JTextField(10);
         caixaTelefone.setFont(new Font("Algerian", Font.BOLD, 20));
         caixaTelefone.setForeground(Color.WHITE);
         caixaTelefone.setOpaque(false);
         caixaTelefone.setText("Telefone");
         caixaTelefone.setHorizontalAlignment(JTextField.CENTER);
-        caixaTelefone.setPreferredSize(new Dimension(90,20));
+        caixaTelefone.setPreferredSize(new Dimension(90, 20));
         labelNome = new JLabel("Nome:");
         labelNome.setFont(new Font("Algerian", Font.BOLD, 20));
         labelNome.setForeground(Color.WHITE);
@@ -67,11 +72,73 @@ public class PainelMarcacao extends PainelFundo {
         labelEmail.setFont(new Font("Algerian", Font.BOLD, 20));
         labelEmail.setForeground(Color.WHITE);
         labelEmail.setAlignmentX(Component.CENTER_ALIGNMENT);
-        labelestado = new JLabel("Estado");
-        labelestado.setFont(new Font("Algerian", Font.BOLD,20));
+        labelestado = new JLabel("");
+        labelestado.setFont(new Font("Algerian", Font.BOLD, 20));
         labelestado.setForeground(Color.WHITE);
         labelestado.setAlignmentX(Component.CENTER_ALIGNMENT);
+        listenerCaixaTelefone();
         criarFundo();
+
+    }
+
+    public void ativarLabelEstado() {
+        labelestado.setForeground(Color.WHITE);
+    }
+
+    public void desativarLabelEstado() {
+        labelestado.setForeground(new Color(0, 0, 0, 0));
+    }
+
+    public void MudarLabelEstado(String a) {
+        labelestado.setText(a);
+    }
+
+    public String obterTexto() {
+        return caixaTelefone.getText();
+    }
+
+    private void listenerCaixaTelefone() {
+        caixaTelefone.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                if (caixaTelefone.getText().length() != 9) {
+                    ativarLabelEstado();
+                    MudarLabelEstado("cliente nao existe");
+                    labelApelido.setText("Apelido: ");
+                    labelNome.setText("Nome: ");
+                    labelEmail.setText("Email: ");
+                } else {
+                    try {
+                        Controlador.listenerMarcacaoCaixaTelefone();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(PainelMarcacao.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                if (caixaTelefone.getText().length() != 9) {
+                    MudarLabelEstado("cliente nao existe");
+                    labelApelido.setText("Apelido: ");
+                    labelNome.setText("Nome: ");
+                    labelEmail.setText("Email: ");
+                    ativarLabelEstado();
+                    MudarLabelEstado("cliente nao existe");
+                } else {
+                    try {
+                        Controlador.listenerMarcacaoCaixaTelefone();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(PainelMarcacao.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+
+            }
+        });
     }
 
     private void criarFundo() {
@@ -153,9 +220,9 @@ public class PainelMarcacao extends PainelFundo {
         painel2.add(labelNome);
         painel2.add(labelApelido);
         painel2.add(labelEmail);
-        painel2.add(Box.createRigidArea(new Dimension(0,70)));
+        painel2.add(Box.createRigidArea(new Dimension(0, 70)));
         painel2.add(labelestado);
-        
+
         JPanel painelEsquerdo = new JPanel();
         painelEsquerdo.setBorder(BorderFactory.createEmptyBorder(0, 40, 0, 10));
         painelEsquerdo.setLayout(new BorderLayout());

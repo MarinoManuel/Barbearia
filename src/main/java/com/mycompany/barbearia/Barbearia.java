@@ -3,17 +3,19 @@ package com.mycompany.barbearia;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 
 public class Barbearia {
 
-    public static void main(String[] args) throws InterruptedException {
-        //new Controlador();
-        JanelaPrincipal janela = new JanelaPrincipal();
-        PainelMarcacao marcacao = new PainelMarcacao();
-        janela.add(marcacao);
-        janela.r();
-        
+    public static void main(String[] args) throws InterruptedException, SQLException {
+        new Controlador();
+       // JanelaPrincipal janela = new JanelaPrincipal();
+      //  PainelMarcacao marcacao = new PainelMarcacao();
+      //  janela.add(marcacao);
+      //  janela.r();
+      
+      
 /*      
         JFrame frame = new JFrame("Exemplo BoxLayout com Espaçamento");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

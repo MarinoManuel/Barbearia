@@ -2,17 +2,17 @@ package com.mycompany.barbearia;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class PainelPrincipal extends PainelFundo {
+public class PainelPrincipal extends PainelFundo implements ActionListener {
 
     JPanel painelCenter;
     JPanel painelNorth;
@@ -28,6 +28,7 @@ public class PainelPrincipal extends PainelFundo {
         this.usuario = usuario;
         addNorth();
         addCenter();
+        botaoMarcar.addActionListener(this);
     }
 
     private void addNorth() {
@@ -96,5 +97,12 @@ public class PainelPrincipal extends PainelFundo {
 
     // Adicionando o painel central ao layout da janela
     add(painelCenter, BorderLayout.CENTER); // Adiciona o painelCenter
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if((BotoesBarbearia)e.getSource() == botaoMarcar){
+            Controlador.listenerBotaoMarcar();
+        }
     }
 }
