@@ -8,8 +8,9 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -77,6 +78,7 @@ public class PainelMarcacao extends PainelFundo {
         labelestado.setForeground(Color.WHITE);
         labelestado.setAlignmentX(Component.CENTER_ALIGNMENT);
         listenerCaixaTelefone();
+        focusListenerTelefone();
         criarFundo();
 
     }
@@ -97,8 +99,24 @@ public class PainelMarcacao extends PainelFundo {
         return caixaTelefone.getText();
     }
 
+    private void focusListenerTelefone() {
+        caixaTelefone.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                  Controlador.ganhouFocoMarcacaoCaixaTelefone();
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                Controlador.perdeuFocoMarcacaoCaixaTelefone();
+            }
+        });
+    }
+
     private void listenerCaixaTelefone() {
         caixaTelefone.getDocument().addDocumentListener(new DocumentListener() {
+
+
             @Override
             public void insertUpdate(DocumentEvent e) {
                 if (caixaTelefone.getText().length() != 9) {

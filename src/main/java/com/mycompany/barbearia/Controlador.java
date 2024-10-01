@@ -1,5 +1,6 @@
 package com.mycompany.barbearia;
 
+import java.awt.Color;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,6 +22,7 @@ public class Controlador {
             janelaPrincipal.add(painelLogin);
             painelLogin.addPainelCentralizado();
             janelaPrincipal.r();
+            janelaPrincipal.criarMouseListener(painelMarcacao.caixaTelefone);
         });
         Thread.sleep(1000);
 
@@ -40,18 +42,36 @@ public class Controlador {
         janelaPrincipal.add(painelMarcacao);
         janelaPrincipal.r();
     }
-    
-    public static void listenerMarcacaoCaixaTelefone() throws SQLException{
+
+    public static void ganhouFocoMarcacaoCaixaTelefone() {
+        if (painelMarcacao.caixaTelefone.getText().equalsIgnoreCase("Telefone")) {
+            painelMarcacao.caixaTelefone.setText("");
+            janelaPrincipal.r();
+        }
+        janelaPrincipal.addMouseListener();
+    }
+
+    public static void perdeuFocoMarcacaoCaixaTelefone() {
+        if (painelMarcacao.caixaTelefone.getText().isEmpty()) {
+            painelMarcacao.caixaTelefone.setText("Telefone");
+            painelMarcacao.desativarLabelEstado();
+            janelaPrincipal.r();
+        }
+        janelaPrincipal.removeMouseListener();
+    }
+
+    public static void listenerMarcacaoCaixaTelefone() throws SQLException {
         String numTelefone = painelMarcacao.obterTexto();
         Cliente cliente = Funcoes_BD.consultarCliente(numTelefone);
-        if(cliente != null){
+        if (cliente != null) {
             painelMarcacao.desativarLabelEstado();
-            painelMarcacao.labelNome.setText("Nome: "+ cliente.getNomeCliente());
-            painelMarcacao.labelApelido.setText("Apelido: "+ cliente.getApelidoCliente());
-            painelMarcacao.labelEmail.setText("Email: "+ cliente.getEmail());
+            painelMarcacao.labelNome.setText("Nome: " + cliente.getNomeCliente());
+            painelMarcacao.labelApelido.setText("Apelido: " + cliente.getApelidoCliente());
+            painelMarcacao.labelEmail.setText("Email: " + cliente.getEmail());
             janelaPrincipal.r();
         }
     }
+
     public static void listenerBotaoEntrar() {
         SwingUtilities.invokeLater(() -> {
             byte a = ValidacaoUsuario.ValidarConsultausuario(painelLogin.getUsuario(), painelLogin.getPassword());

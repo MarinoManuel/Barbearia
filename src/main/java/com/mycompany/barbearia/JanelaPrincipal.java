@@ -4,10 +4,15 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
+import javax.swing.JTextField;
+
 
 public class JanelaPrincipal extends JFrame {
-
+    MouseAdapter mouseListener;
+    
     public JanelaPrincipal() {
         super("Janela principal");
         super.setSize(900, 600);
@@ -31,7 +36,7 @@ public class JanelaPrincipal extends JFrame {
             }
         });
     }
-
+ 
     public void r() {
         super.revalidate();
         super.repaint();
@@ -44,5 +49,24 @@ public class JanelaPrincipal extends JFrame {
         super.revalidate();
         return e;
     }
-
+    
+    public void removeMouseListener(){
+        super.removeMouseListener(mouseListener);
+    }
+   
+    public void addMouseListener(){
+        super.addMouseListener(mouseListener);
+    }
+    
+    
+    public void criarMouseListener(JTextField caixa){
+        mouseListener = new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e){
+                if(!caixa.getBounds().contains(e.getPoint())){
+                    JanelaPrincipal.this.requestFocusInWindow();
+                }
+            }       
+        };
+    }
 }

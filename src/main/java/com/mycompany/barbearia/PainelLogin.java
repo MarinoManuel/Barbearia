@@ -10,6 +10,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -53,9 +55,14 @@ public class PainelLogin extends PainelFundo implements ActionListener {
         caixaPassword.setForeground(Color.WHITE);
         caixaUsuario.setCaretColor(Color.WHITE);
         caixaPassword.setCaretColor(Color.WHITE);
+        caixaUsuario.setText("Usuario");
+        caixaPassword.setText("Senha");
+        caixaPassword.setEchoChar((char) 0);
         botaoEntrar.addActionListener(this);
         criarPainelCentralizado();
         criarPainelEntrada();
+        FocusListenerUsuario();
+        FocusListenerPassword();
     }
     
     public void addPainelCentralizado() {
@@ -72,53 +79,40 @@ public class PainelLogin extends PainelFundo implements ActionListener {
     }
     
     private void criarPainelEntrada() {
-        JLabel labelDigitarUsuario = new JLabel("Qual seu nome de usuario?");
-        labelDigitarUsuario.setFont(new Font("Algerian", Font.BOLD, 20));
-        labelDigitarUsuario.setForeground(Color.WHITE);
-        JLabel labelDigitePassword = new JLabel("qual e a sua senha?");
-        labelDigitePassword.setFont(new Font("Algerian", Font.BOLD, 20));
-        labelDigitePassword.setForeground(Color.WHITE);
         painelEntrada = new JPanel();
         painelEntrada.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        
         gbc.gridx = 0;
         gbc.gridy = 0;
-        painelEntrada.add(labelDigitarUsuario, gbc);
+        painelEntrada.add(caixaUsuario, gbc);
+        
         
         gbc.gridx = 0;
         gbc.gridy = 1;
-        painelEntrada.add(caixaUsuario, gbc);
-        
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        painelEntrada.add(labelDigitePassword, gbc);
-        
-        gbc.gridx = 0;
-        gbc.gridy = 3;
         painelEntrada.add(caixaPassword, gbc);
         
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 2;
         gbc.fill = GridBagConstraints.EAST;
         gbc.insets = new Insets(10, 0, 1, 0);  // Margens ao redor do componente (topo, esquerda, baixo, direita)
         painelBotaoEntrar_LabelGirando.add(botaoEntrar);
         painelBotaoEntrar_LabelGirando.add(labelGirando);
         painelEntrada.add(painelBotaoEntrar_LabelGirando, gbc);
         
-        labelEstadoPainelLogin = new JLabel();
+        labelEstadoPainelLogin = new JLabel("   ");
         labelEstadoPainelLogin.setFont(new Font("Algerian", Font.BOLD, 20));
         labelEstadoPainelLogin.setForeground(Color.WHITE);
         gbc.gridx = 0;
-        gbc.gridy = 5;
+        gbc.gridy = 3;
         painelEntrada.add(labelEstadoPainelLogin, gbc);
         painelEntrada.setOpaque(false);
     }
     
     public void addPainelEntrada() {
         this.add(painelEntrada);
-        
     }
 
     public void ativarLabelGirando() {
@@ -189,4 +183,46 @@ public class PainelLogin extends PainelFundo implements ActionListener {
             Controlador.listenerBotaoEntrar();
         }
     }
+    
+    // criar focusListener para as minhas caixas;
+    private void FocusListenerUsuario(){
+        caixaUsuario.addFocusListener(new FocusListener(){
+            @Override
+            public void focusGained(FocusEvent e) {
+                if(caixaUsuario.getText().equalsIgnoreCase("Usuario")){
+                    caixaUsuario.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if(caixaUsuario.getText().isEmpty()){
+                    caixaUsuario.setText("usuario");
+                }
+            }
+        });
+    }
+    
+    private void FocusListenerPassword(){
+         caixaPassword.addFocusListener(new FocusListener(){
+            @Override
+            public void focusGained(FocusEvent e) {
+                String password = new String(caixaPassword.getPassword());
+                if(password.equalsIgnoreCase("senha")){
+                    caixaPassword.setText("");
+                    caixaPassword.setEchoChar('*');
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                String password = new String(caixaPassword.getPassword());
+                if(password.isEmpty()){
+                    caixaPassword.setText("senha");
+                    caixaPassword.setEchoChar((char)0);
+                }
+            }
+        });
+    }
+    
 }
